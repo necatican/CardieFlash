@@ -1,0 +1,3 @@
+target/classes/db/cards.db
+src/cards.db
+src/main/resources/db/cards.db
