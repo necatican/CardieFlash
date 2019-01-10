@@ -23,9 +23,8 @@ public class Database {
       }
    }
 
-   public Connection getConnection()
-   {
-      return this.conn; 
+   public Connection getConnection() {
+      return this.conn;
    }
 
 }
