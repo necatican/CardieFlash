@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Database",
+            "request": "launch",
+            "mainClass": "com.cardium.cardieflash.database.Database",
+            "projectName": "steam"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.cardium.cardieflash.Main",
+            "projectName": "steam"
+        }
+    ]
+}
