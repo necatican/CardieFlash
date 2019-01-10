@@ -13,6 +13,13 @@ public class Card
         this.back = answer;
     }
 
+    public Card(String question, String answer)
+    {
+        this.cid = -1;
+        this.front = question;
+        this.back = answer;
+    }
+
     public int getCid()
     {
         return this.cid;
