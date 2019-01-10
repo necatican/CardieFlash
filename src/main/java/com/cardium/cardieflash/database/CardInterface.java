@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import com.cardium.cardieflash.Card;
 
 public interface CardInterface {
-    public int createNewCard(String front, String back);
-    public int createNewCard(Card card);
+    public Card createNewCard(String front, String back);
+    public Card createNewCard(Card card);
 
-    public int delete(int cid);
+    public Boolean delete(int cid);
 
-    public int update(int cid, Card card);
-    public int update(int cid, String side, String text);
+    public Card editCard(int cid, Card card);
+    public Card editCard(int cid, String side, String text);
 
     public ArrayList<Card> getAll();
     public Card getSingle(int cid);

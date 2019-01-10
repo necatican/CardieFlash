@@ -10,44 +10,50 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CardDb implements CardInterface{
+
+public class CardDb implements CardInterface {
     private Connection conn;
 
     public CardDb(Database database) {
         this.conn = database.getConnection();
     }
 
-    public int createNewCard(String front, String back) {
+    public Card createNewCard(String front, String back) {
         String sql = "INSERT INTO CARDS(FRONT,BACK) VALUES(?,?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String generatedColumns[] = { "ID" };
+        try (PreparedStatement pstmt = conn.prepareStatement(sql, generatedColumns)) {
             pstmt.setString(1, front);
             pstmt.setString(2, back);
             pstmt.executeUpdate();
-            return 0;
+            ResultSet rs = pstmt.getGeneratedKeys();
+
+            int id = rs.getInt(1);
+
+            return new Card(id, front, back);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return -1;
+            throw new RuntimeException();
         }
     }
 
-    public int createNewCard(Card card) {
+    public Card createNewCard(Card card) {
         return createNewCard(card.getFront(), card.getBack());
     }
 
-    public int delete(int cid) {
+    public Boolean delete(int cid) {
         String sql = "DELETE FROM CARDS WHERE cid = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, cid);
             pstmt.executeUpdate();
-            return 0;
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return -1;
+            return false;
         }
     }
 
-    public int update(int cid, String side, String text) {
+    public Card editCard(int cid, String side, String text) {
         switch (side.toUpperCase()) {
         case "FRONT":
             break;
@@ -63,15 +69,18 @@ public class CardDb implements CardInterface{
             pstmt.setString(1, text);
             pstmt.setInt(2, cid);
             pstmt.executeUpdate();
-            return 0;
+            return getSingle(cid);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return -1;
+            throw new RuntimeException();
         }
     }
 
-    public int update(int cid, Card card) {
-        return (update(cid, "FRONT", card.getFront()) & update(cid, "BACK", card.getBack()));
+    public Card editCard(int cid, Card card) {
+        editCard(cid, "FRONT", card.getFront());
+        editCard(cid, "BACK", card.getBack());
+        return getSingle(cid);
+
     }
 
     public ArrayList<Card> getAll() {
