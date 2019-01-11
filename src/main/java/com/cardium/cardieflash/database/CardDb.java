@@ -56,14 +56,20 @@ public class CardDb implements CardInterface {
 
         String sql = "UPDATE CARDS SET FRONT = ?, BACK = ? WHERE cid = ?";
 
+        Card backup = getSingle(card.getCid());
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, card.getFront());
             pstmt.setString(2, card.getBack());
             pstmt.setInt(3, card.getCid());
-
             pstmt.executeUpdate();
 
-            return card;
+            Card temp = getSingle(card.getCid());
+
+            if (!temp.equals(card)) {
+                return updateCard(backup);
+            }
+
+            return temp;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException();
@@ -101,7 +107,7 @@ public class CardDb implements CardInterface {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return new Card("x", "x");
+            throw new RuntimeException();
         }
     }
 }
