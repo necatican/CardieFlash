@@ -11,9 +11,7 @@ public interface CardInterface {
 
     public Boolean delete(int cid);
 
-    public Card editCard(int cid, Card card);
-
-    public Card editCard(int cid, String side, String text);
+    public Card updateCard(Card card);
 
     public ArrayList<Card> getAll();
 

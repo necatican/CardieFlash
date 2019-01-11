@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 public class CardDb implements CardInterface {
     private Connection conn;
 
@@ -53,34 +52,22 @@ public class CardDb implements CardInterface {
         }
     }
 
-    public Card editCard(int cid, String side, String text) {
-        switch (side.toUpperCase()) {
-        case "FRONT":
-            break;
-        case "BACK":
-            break;
-        default:
-            throw new IllegalArgumentException();
-        }
+    public Card updateCard(Card card) {
 
-        String sql = "UPDATE CARDS SET " + side.toUpperCase() + " = ? WHERE cid = ?";
+        String sql = "UPDATE CARDS SET FRONT = ?, BACK = ? WHERE cid = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, text);
-            pstmt.setInt(2, cid);
+            pstmt.setString(1, card.getFront());
+            pstmt.setString(2, card.getBack());
+            pstmt.setInt(3, card.getCid());
+
             pstmt.executeUpdate();
-            return getSingle(cid);
+
+            return card;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException();
         }
-    }
-
-    public Card editCard(int cid, Card card) {
-        editCard(cid, "FRONT", card.getFront());
-        editCard(cid, "BACK", card.getBack());
-        return getSingle(cid);
-
     }
 
     public ArrayList<Card> getAll() {
