@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class DeckDb {
+public class DeckDb implements DeckInterface{
     private Connection conn;
 
     public DeckDb(Database database) {
@@ -91,10 +91,6 @@ public class DeckDb {
     public boolean addCard(int deckId, int cid) {
         String sql = "INSERT INTO HASCARDS(DECKID,CID) VALUES(?,?)";
 
-        if (isInDeck(deckId, cid)) {
-            return false;
-        }
-
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, deckId);
             pstmt.setInt(2, cid);
@@ -109,10 +105,6 @@ public class DeckDb {
 
     public boolean addCard(Deck deck, Card card) {
         return addCard(deck.getDeckId(), card.getCid());
-    }
-
-    public boolean isInDeck(int deckId, int cid) {
-        return false;
     }
 
     public HashMap<Integer, Card> getCardsInDeck(int deckId) {
@@ -133,8 +125,8 @@ public class DeckDb {
             throw new RuntimeException();
         }
     }
-    public HashMap<Integer, Card> getCardsInDeck(Deck deck)
-    {
+
+    public HashMap<Integer, Card> getCardsInDeck(Deck deck) {
         return getCardsInDeck(deck.getDeckId());
     }
 }
