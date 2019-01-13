@@ -10,7 +10,7 @@ public class Tag {
         this.name = name;
     }
 
-    public int gettagId() {
+    public int getTagId() {
         return tagId;
     }
 
