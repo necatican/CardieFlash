@@ -25,9 +25,7 @@ public class TagDb {
             pstmt.setString(1, name);
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
-
             int id = rs.getInt(1);
-
             return new Tag(id, name);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -109,13 +107,18 @@ public class TagDb {
     }
 
     public HashMap<Integer, Card> getCardsWithTag(ArrayList<Integer> tagId) {
-        String sql = "SELECT CARDS.CID, CARDS.FRONT, CARDS.BACK FROM CARDS JOIN HASTAGS ON CARDS.CID = HASTAGS.CID WHERE HASTAGS.tagId IN ?;";
+        String questionMarks = "";
+        for (int i = 0; i < tagId.size() - 1; i++) {
+            questionMarks = questionMarks + "?,";
+        }
 
+        String sql = "SELECT CARDS.CID, CARDS.FRONT, CARDS.BACK FROM CARDS JOIN HASTAGS ON CARDS.CID = HASTAGS.CID WHERE HASTAGS.TAGID IN ("
+                + questionMarks + " ?);";
         HashMap<Integer, Card> query = new HashMap<Integer, Card>();
-        Object[] tempArray = tagId.toArray(new Object[tagId.size()]);
-
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            //pstmt.setArray(1, tagId.toArray());
+            for (int i = 0; i < tagId.size(); i++) {
+                pstmt.setInt(i + 1, tagId.get(i));
+            }
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -132,7 +135,6 @@ public class TagDb {
     public HashMap<Integer, Card> getCardsWithTag(Tag... tags) {
         ArrayList<Integer> tagList = new ArrayList<Integer>();
         for (Tag tag : tags) {
-
             tagList.add(tag.getTagId());
         }
         return getCardsWithTag(tagList);
