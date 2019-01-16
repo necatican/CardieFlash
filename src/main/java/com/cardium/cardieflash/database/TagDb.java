@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TagDb {
+public class TagDb implements TagInterface{
     private Connection conn;
 
     public TagDb(Database database) {
@@ -33,7 +33,7 @@ public class TagDb {
         }
     }
 
-    public Boolean delete(int tagId) {
+    public Boolean deleteTag(int tagId) {
         String sql = "DELETE FROM TAGS WHERE TAGID = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
