@@ -1,8 +1,5 @@
 package com.cardium.cardieflash;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.cardium.cardieflash.database.CardDb;
 import com.cardium.cardieflash.database.Database;
 import com.cardium.cardieflash.database.DeckDb;
