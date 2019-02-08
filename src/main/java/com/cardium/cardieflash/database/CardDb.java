@@ -88,7 +88,7 @@ public class CardDb implements CardInterface {
             return cardSet;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return cardSet;
+            throw new RuntimeException();
         }
 
     }

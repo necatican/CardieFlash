@@ -8,9 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DeckDb implements DeckInterface{
+public class DeckDb implements DeckInterface {
     private Connection conn;
 
     public DeckDb(Database database) {
@@ -88,6 +90,39 @@ public class DeckDb implements DeckInterface{
         }
     }
 
+    public ArrayList<Deck> getAllDecks() {
+        String sql = "SELECT deckId, NAME FROM DECKS";
+        ArrayList<Deck> deckList = new ArrayList<Deck>();
+        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                deckList.add(new Deck(rs.getInt("deckId"), rs.getString("Name")));
+            }
+
+            return deckList;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException();
+        }
+
+    }
+
+    public int getTotalCardCount(int deckId) {
+        String sql = "SELECT COUNT(CID) AS cardCount FROM HASCARDS WHERE deckId = ?";
+        int query;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, deckId);
+            ResultSet rs = pstmt.executeQuery();
+
+            query = rs.getInt("cardCount");
+
+            return query;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException();
+        }
+    }
     public boolean addCard(int deckId, int cid) {
         String sql = "INSERT INTO HASCARDS(DECKID,CID) VALUES(?,?)";
 

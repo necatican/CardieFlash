@@ -6,6 +6,7 @@ public class Deck {
     private int deckId;
     private String name;
     private HashMap<Integer, Card> cards;
+    private int totalCardCount;
 
     public Deck(int id, String name, HashMap<Integer, Card> cards) {
         this.deckId = id;
@@ -61,6 +62,16 @@ public class Deck {
             return true;
         }
 
+    }
+
+    public int getTotalCardCount()
+    {
+        return totalCardCount;
+    }
+    
+    public void setTotalCardCount(int cardCount)
+    {
+        this.totalCardCount = cardCount;
     }
 
 }
