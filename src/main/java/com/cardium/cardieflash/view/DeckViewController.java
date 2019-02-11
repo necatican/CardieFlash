@@ -4,13 +4,21 @@ import com.cardium.cardieflash.Deck;
 import com.cardium.cardieflash.MainApp;
 import com.cardium.cardieflash.database.DeckDb;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox;
 
@@ -46,6 +54,7 @@ public class DeckViewController {
     private ArrayList<CheckBox> checkboxList;
     private MainApp mainApp;
     private HashMap<CheckBox, Deck> checkboxToDeckMap;
+    private List<Deck> selectedDecks;
 
     public DeckViewController() {
     }
@@ -68,9 +77,33 @@ public class DeckViewController {
     void createNewDeck(MouseEvent event) {
 
         boolean okClicked = mainApp.showCreateDeckDialog();
-        if(okClicked)
-        {
-        this.refreshPane();}
+        if (okClicked) {
+            this.refreshPane();
+        }
+    }
+
+    @FXML
+    void deleteDeck(MouseEvent event) {
+        StringBuilder deckDeletionConfirmation = new StringBuilder();
+        deckDeletionConfirmation.append("You are going to delete: ");
+        deckDeletionConfirmation
+                .append(selectedDecks.stream().map(deck -> deck.getName()).collect(Collectors.joining(", ")));
+
+        deckDeletionConfirmation.append(".");
+
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Deletion");
+        alert.setHeaderText(deckDeletionConfirmation.toString());
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            DeckDb deckDb = mainApp.getDeckDb();
+            selectedDecks.forEach(deckDb::delete);
+            this.setInfoBox("", "", "");
+            this.refreshPane();
+        } else {
+        }
     }
 
     public void refreshPane() {
@@ -86,7 +119,6 @@ public class DeckViewController {
             checkboxList.add(temp);
             checkboxToDeckMap.put(temp, deck);
             vbox.getChildren().add(temp);
-
         }
 
     }
@@ -94,17 +126,26 @@ public class DeckViewController {
     @FXML
     void handleCheckBoxAction(ActionEvent event) {
         CheckBox checked = (CheckBox) event.getTarget();
+        this.selectedDecks = checkboxList.stream().filter(CheckBox::isSelected).map(checkboxToDeckMap::get)
+                .collect(Collectors.toList());
+
         if (checked.isSelected()) {
             Deck deck = checkboxToDeckMap.get(checked);
-            deckId.setText(String.valueOf(deck.getDeckId()));
-            deckName.setText(deck.getName());
-            totalCards.setText(String.valueOf(deck.getTotalCardCount()));
-
+            this.setInfoBox(String.valueOf(deck.getDeckId()), deck.getName(), String.valueOf(deck.getTotalCardCount()));
         } else {
-            deckId.setText("");
-            deckName.setText("");
-            totalCards.setText("");
+            this.setInfoBox("", "", "");
         }
 
+    }
+
+    public void setInfoBox(String id, String name, String cards) {
+        deckId.setText(id);
+        deckName.setText(name);
+        totalCards.setText(cards);
+    }
+
+    public int selectedDecksCardCount() {
+        return this.selectedDecks.stream().map(Deck::getTotalCardCount)
+                .collect(Collectors.summingInt((Integer::intValue)));
     }
 }

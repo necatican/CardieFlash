@@ -48,7 +48,10 @@ public class DeckDb implements DeckInterface {
             return false;
         }
     }
-
+    public Boolean delete(Deck deck) {
+        return this.delete(deck.getDeckId());
+    }
+    
     public Deck updateDeck(Deck deck) {
 
         String sql = "UPDATE DECKS SET NAME = ? WHERE deckId = ?";

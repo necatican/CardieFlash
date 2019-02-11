@@ -45,7 +45,7 @@
                     <buttons>
                       <Button fx:id="newDeck" mnemonicParsing="false" onMouseClicked="#createNewDeck" text="New" />
                         <Button fx:id="editDeck" mnemonicParsing="false" onMouseClicked="#addDeck" text="Edit" />
-                        <Button fx:id="deleteDeck" mnemonicParsing="false" text="Delete" />
+                        <Button fx:id="deleteDeck" mnemonicParsing="false" onMouseClicked="#deleteDeck" text="Delete" />
                     </buttons>
                   </ButtonBar>
                   <VBox fx:id="vbox" layoutX="14.0" layoutY="14.0" prefHeight="363.0" prefWidth="416.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
