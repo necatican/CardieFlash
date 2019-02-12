@@ -6,7 +6,6 @@ import com.cardium.cardieflash.database.DeckDb;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -14,9 +13,6 @@ import javafx.stage.Stage;
 import lombok.Setter;
 
 public class CreateDeckController {
-
-    @FXML
-    private ColorPicker colorPicker;
 
     @FXML
     private TextField deckNameTextBox;
@@ -64,7 +60,6 @@ public class CreateDeckController {
             dialogStage.close();
         }
     }
-
 
     public boolean isOkClicked() {
         return okClicked;

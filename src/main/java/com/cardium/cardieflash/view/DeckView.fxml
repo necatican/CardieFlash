@@ -44,7 +44,7 @@
                   <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" prefWidth="218.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <buttons>
                       <Button fx:id="newDeck" mnemonicParsing="false" onMouseClicked="#createNewDeck" text="New" />
-                        <Button fx:id="editDeck" mnemonicParsing="false" onMouseClicked="#addDeck" text="Edit" />
+                        <Button fx:id="editDeck" disable="true" mnemonicParsing="false" onMouseClicked="#editDeck" text="Edit" />
                         <Button fx:id="deleteDeck" mnemonicParsing="false" onMouseClicked="#deleteDeck" text="Delete" />
                     </buttons>
                   </ButtonBar>

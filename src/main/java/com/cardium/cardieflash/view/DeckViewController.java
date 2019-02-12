@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseEvent;
@@ -106,6 +107,27 @@ public class DeckViewController {
         }
     }
 
+    @FXML
+    void editDeck(MouseEvent event) {
+        Deck deck = selectedDecks.get(0);
+        TextInputDialog dialog = new TextInputDialog(deck.getName());
+        dialog.setTitle("Editing: " + deck.getName());
+        dialog.setHeaderText("You are currently editing " + deck.getName());
+        dialog.setContentText("Please enter a new name: ");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            if (!deck.getName().equals(result.get())) {
+                DeckDb deckDb = mainApp.getDeckDb();
+                deck.setName(result.get());
+                deckDb.updateDeck(deck);
+                this.refreshPane();
+                editDeck.setDisable(true);
+            }
+        }
+    }
+
     public void refreshPane() {
         DeckDb deckDb = mainApp.getDeckDb();
         ArrayList<Deck> deckList = deckDb.getAllDecks();
@@ -134,6 +156,11 @@ public class DeckViewController {
             this.setInfoBox(String.valueOf(deck.getDeckId()), deck.getName(), String.valueOf(deck.getTotalCardCount()));
         } else {
             this.setInfoBox("", "", "");
+        }
+        if (selectedDecks.size() != 1) {
+            editDeck.setDisable(true);
+        } else {
+            editDeck.setDisable(false);
         }
 
     }

@@ -48,10 +48,11 @@ public class DeckDb implements DeckInterface {
             return false;
         }
     }
+
     public Boolean delete(Deck deck) {
         return this.delete(deck.getDeckId());
     }
-    
+
     public Deck updateDeck(Deck deck) {
 
         String sql = "UPDATE DECKS SET NAME = ? WHERE deckId = ?";
@@ -64,7 +65,7 @@ public class DeckDb implements DeckInterface {
 
             Deck temp = getDeck(deck.getDeckId());
 
-            if (!temp.equals(deck)) {
+            if (!temp.getName().equals(deck.getName())) {
                 return updateDeck(backup);
             }
 
@@ -126,6 +127,7 @@ public class DeckDb implements DeckInterface {
             throw new RuntimeException();
         }
     }
+
     public boolean addCard(int deckId, int cid) {
         String sql = "INSERT INTO HASCARDS(DECKID,CID) VALUES(?,?)";
 
