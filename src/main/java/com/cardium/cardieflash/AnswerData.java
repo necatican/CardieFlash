@@ -13,9 +13,8 @@ public class AnswerData {
         this.lastAsked = lastAsked;
     }
 
-    public int getAnswerId()
-    {
-        return this.answerId;
+    public int getAnswerId() {
+        return answerId;
     }
 
     public double getTimeToAnswer() {

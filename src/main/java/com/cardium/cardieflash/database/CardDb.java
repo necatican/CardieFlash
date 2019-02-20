@@ -90,7 +90,6 @@ public class CardDb implements CardInterface {
             System.out.println(e.getMessage());
             return cardSet;
         }
-
     }
 
     public Card getSingle(int cid) {

@@ -48,7 +48,6 @@ public class DeckDb implements DeckInterface{
     }
 
     public Deck updateDeck(Deck deck) {
-
         String sql = "UPDATE DECKS SET NAME = ? WHERE deckId = ?";
 
         Deck backup = getDeck(deck.getDeckId());

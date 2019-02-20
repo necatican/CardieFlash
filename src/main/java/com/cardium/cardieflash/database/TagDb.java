@@ -47,7 +47,6 @@ public class TagDb implements TagInterface{
     }
 
     public Tag updateTag(Tag tag) {
-
         String sql = "UPDATE TAGS SET NAME = ? WHERE TAGID = ?";
 
         Tag backup = getTag(tag.getTagId());
@@ -147,5 +146,4 @@ public class TagDb implements TagInterface{
         }
         return getCardsWithTag(tagList);
     }
-
 }

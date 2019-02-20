@@ -76,5 +76,4 @@ public class AnswerDb {
     public AnswerDataList getAnswersForCard(Card card) {
         return getAnswersForCard(card.getCid());
     }
-
 }

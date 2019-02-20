@@ -6,7 +6,6 @@ public class TemporaryDeck {
     private String name;
     private HashMap<Integer, Card> cards;
 
-
     public TemporaryDeck(String name) {
         this.name = name;
     }
@@ -15,8 +14,7 @@ public class TemporaryDeck {
         return name;
     }
 
-    public void addCards(HashMap<Integer, Card> cards)
-    {
+    public void addCards(HashMap<Integer, Card> cards) {
         this.cards = cards;
     }
 
@@ -30,7 +28,6 @@ public class TemporaryDeck {
         } else {
             cards.put(card.getCid(), card);
             return true;
-
         }
     }
 
@@ -54,7 +51,6 @@ public class TemporaryDeck {
             cards.put(card.getCid(), card);
             return true;
         }
-
     }
-
 }
+

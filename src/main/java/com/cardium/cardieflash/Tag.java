@@ -1,7 +1,6 @@
 package com.cardium.cardieflash;
 
 public class Tag {
-
     private int tagId;
     private String name;
 

@@ -15,25 +15,25 @@ public class Card {
     }
 
     public int getCid() {
-        return this.cid;
+        return cid;
     }
 
     public String getFront() {
-        return this.front;
+        return front;
     }
 
     public String getBack() {
-        return this.back;
+        return back;
     }
 
     public boolean checkAnswer(String userAnswer) {
         String answer = userAnswer.toLowerCase();
-        String back = this.back.toLowerCase();
+        String backLower = back.toLowerCase();
 
-        if (answer.equals(back)) {
+        if (answer.equals(backLower)) {
             return true;
-        } else if (Math.abs(answer.length() - back.length()) < LEVENSHTEIN_TOLERANCE){
-            if (Levenshtein.levenshteinDistance(answer, back) < LEVENSHTEIN_TOLERANCE) {
+        } else if (Math.abs(answer.length() - backLower.length()) < LEVENSHTEIN_TOLERANCE){
+            if (Levenshtein.levenshteinDistance(answer, backLower) < LEVENSHTEIN_TOLERANCE) {
                 return true;
             } else {
                 return false;
@@ -41,10 +41,9 @@ public class Card {
         } else {
             return false;
         }
-
     }
 
     public boolean equals(Card card) {
-        return (card.getCid() == this.cid && card.getBack().equals(this.back) && card.getFront().equals(this.front));
+        return (card.getCid() == cid && card.getBack().equals(back) && card.getFront().equals(front));
     }
 }
