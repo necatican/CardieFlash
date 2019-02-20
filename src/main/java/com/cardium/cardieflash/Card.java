@@ -30,18 +30,10 @@ public class Card {
         String answer = userAnswer.toLowerCase();
         String back = this.back.toLowerCase();
 
-        if (answer.equals(back)) {
-            return true;
-        } else if (Math.abs(answer.length() - back.length()) < LEVENSHTEIN_TOLERANCE){
-            if (Levenshtein.levenshteinDistance(answer, back) < LEVENSHTEIN_TOLERANCE) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        boolean exact = answer.equals(back);
+        boolean close = Math.abs(answer.length() - back.length()) < LEVENSHTEIN_TOLERANCE;
 
+        return exact || (close && Levenshtein.levenshteinDistance(answer, back) < LEVENSHTEIN_TOLERANCE);
     }
 
     public boolean equals(Card card) {
