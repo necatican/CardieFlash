@@ -20,7 +20,7 @@ public class CardDb implements CardInterface {
     public Card createNewCard(String front, String back) {
         String sql = "INSERT INTO CARDS(FRONT,BACK) VALUES(?,?)";
         String generatedColumns[] = { "ID" };
-        try (PreparedStatement pstmt = conn.prepareStatement(sql, generatedColumns)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql, generatedColumns)) {
             pstmt.setString(1, front);
             pstmt.setString(2, back);
             pstmt.executeUpdate();
@@ -42,7 +42,7 @@ public class CardDb implements CardInterface {
     public Boolean delete(int cid) {
         String sql = "DELETE FROM CARDS WHERE cid = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setInt(1, cid);
             pstmt.executeUpdate();
             return true;
@@ -57,7 +57,7 @@ public class CardDb implements CardInterface {
         String sql = "UPDATE CARDS SET FRONT = ?, BACK = ? WHERE cid = ?";
 
         Card backup = getSingle(card.getCid());
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setString(1, card.getFront());
             pstmt.setString(2, card.getBack());
             pstmt.setInt(3, card.getCid());
@@ -80,7 +80,7 @@ public class CardDb implements CardInterface {
         String sql = "SELECT CID, FRONT, BACK FROM CARDS";
         ArrayList<Card> cardSet = new ArrayList<Card>();
 
-        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Statement stmt = this.conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 cardSet.add(new Card(rs.getInt("CID"), rs.getString("FRONT"), rs.getString("BACK")));
@@ -95,7 +95,7 @@ public class CardDb implements CardInterface {
     public Card getSingle(int cid) {
         String sql = "SELECT CID, FRONT, BACK FROM CARDS WHERE cid = ?";
         Card query;
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, cid);
             ResultSet rs = pstmt.executeQuery();

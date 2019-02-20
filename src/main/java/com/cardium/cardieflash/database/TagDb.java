@@ -21,7 +21,7 @@ public class TagDb implements TagInterface{
     public Tag createNewTag(String name) {
         String sql = "INSERT INTO TAGS(NAME) VALUES(?)";
         String generatedColumns[] = { "ID" };
-        try (PreparedStatement pstmt = conn.prepareStatement(sql, generatedColumns)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql, generatedColumns)) {
             pstmt.setString(1, name);
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
@@ -36,7 +36,7 @@ public class TagDb implements TagInterface{
     public Boolean deleteTag(int tagId) {
         String sql = "DELETE FROM TAGS WHERE TAGID = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setInt(1, tagId);
             pstmt.executeUpdate();
             return true;
@@ -50,7 +50,7 @@ public class TagDb implements TagInterface{
         String sql = "UPDATE TAGS SET NAME = ? WHERE TAGID = ?";
 
         Tag backup = getTag(tag.getTagId());
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setString(1, tag.getName());
             pstmt.setInt(2, tag.getTagId());
             pstmt.executeUpdate();
@@ -71,7 +71,7 @@ public class TagDb implements TagInterface{
     public Tag getTag(int tagId) {
         String sql = "SELECT TAGID, NAME FROM TAGS WHERE TAGID = ?";
         Tag query;
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, tagId);
             ResultSet rs = pstmt.executeQuery();
@@ -89,7 +89,7 @@ public class TagDb implements TagInterface{
     public boolean addCard(int cid, int tagId) {
         String sql = "INSERT INTO HASTAGS(CID,TAGID) VALUES(?,?)";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setInt(1, tagId);
             pstmt.setInt(2, cid);
             pstmt.executeUpdate();
@@ -114,7 +114,7 @@ public class TagDb implements TagInterface{
         String sql = "SELECT CARDS.CID, CARDS.FRONT, CARDS.BACK FROM CARDS JOIN HASTAGS ON CARDS.CID = HASTAGS.CID WHERE HASTAGS.TAGID IN ("
                 + questionMarks + " ?);";
         HashMap<Integer, Card> query = new HashMap<Integer, Card>();
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             for (int i = 0; i < tagId.size(); i++) {
                 pstmt.setInt(i + 1, tagId.get(i));
             }

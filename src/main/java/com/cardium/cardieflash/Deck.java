@@ -19,32 +19,32 @@ public class Deck {
     }
 
     public int getDeckId() {
-        return deckId;
+        return this.deckId;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public HashMap<Integer, Card> getCards() {
-        return cards;
+        return this.cards;
     }
 
     public boolean addCard(Card card) {
-        if (cards.containsKey(card.getCid())) {
+        if (this.cards.containsKey(card.getCid())) {
             return false;
         } else {
-            cards.put(card.getCid(), card);
+            this.cards.put(card.getCid(), card);
             return true;
 
         }
     }
 
     public boolean removeCard(int cid) {
-        if (!cards.containsKey(cid)) {
+        if (!this.cards.containsKey(cid)) {
             return false;
         } else {
-            cards.remove(cid);
+            this.cards.remove(cid);
             return true;
         }
     }
@@ -54,10 +54,10 @@ public class Deck {
     }
 
     public boolean editCard(Card card) {
-        if (!cards.containsKey(card.getCid())) {
+        if (!this.cards.containsKey(card.getCid())) {
             return false;
         } else {
-            cards.put(card.getCid(), card);
+            this.cards.put(card.getCid(), card);
             return true;
         }
 

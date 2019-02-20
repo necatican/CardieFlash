@@ -22,7 +22,7 @@ public class AnswerDb {
     public void submitAnswer(double timeToAnswer, boolean correctness, int cardId) {
         String sql = "INSERT INTO ANSWERDATA(TIMETOANSWER, CORRECTNESS, LASTASKED) VALUES(?, ?, DATETIME('NOW'));";
         String generatedColumns[] = { "ID" };
-        try (PreparedStatement pstmt = conn.prepareStatement(sql, generatedColumns)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql, generatedColumns)) {
             pstmt.setDouble(1, timeToAnswer);
             pstmt.setBoolean(2, correctness);
             pstmt.executeUpdate();
@@ -39,7 +39,7 @@ public class AnswerDb {
 
     public void submitAnswerRelation(int answerId, int cardId) {
         String sql = "INSERT INTO HASANSWERDATA(ANSWERID, CID) VALUES(?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
             pstmt.setInt(1, answerId);
             pstmt.setInt(2, cardId);
             pstmt.executeUpdate();
@@ -55,7 +55,7 @@ public class AnswerDb {
         String sql = "SELECT ANSWERDATA.ANSWERID, ANSWERDATA.TIMETOANSWER, ANSWERDATA.CORRECTNESS, ANSWERDATA.LASTASKED FROM ANSWERDATA JOIN "
                 + "HASANSWERDATA ON ANSWERDATA.ANSWERID = HASANSWERDATA.ANSWERID WHERE CID = 1 ORDER BY ANSWERDATA.ANSWERID DESC LIMIT ?;";
         ArrayList<AnswerData> query = new ArrayList<AnswerData>();
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = this.conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, cardId);
             pstmt.setInt(2, MAX_DATA_ENTRIES);

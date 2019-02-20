@@ -15,20 +15,20 @@ public class Card {
     }
 
     public int getCid() {
-        return cid;
+        return this.cid;
     }
 
     public String getFront() {
-        return front;
+        return this.front;
     }
 
     public String getBack() {
-        return back;
+        return this.back;
     }
 
     public boolean checkAnswer(String userAnswer) {
         String answer = userAnswer.toLowerCase();
-        String backLower = back.toLowerCase();
+        String backLower = this.back.toLowerCase();
 
         if (answer.equals(backLower)) {
             return true;
@@ -44,6 +44,6 @@ public class Card {
     }
 
     public boolean equals(Card card) {
-        return (card.getCid() == cid && card.getBack().equals(back) && card.getFront().equals(front));
+        return (card.getCid() == this.cid && card.getBack().equals(this.back) && card.getFront().equals(this.front));
     }
 }

@@ -10,10 +10,10 @@ public class Tag {
     }
 
     public int getTagId() {
-        return tagId;
+        return this.tagId;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 }

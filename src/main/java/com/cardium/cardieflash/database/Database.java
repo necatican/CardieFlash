@@ -13,7 +13,7 @@ public class Database {
    public void startConnection() {
       try {
          Class.forName("org.sqlite.JDBC");
-         conn = DriverManager.getConnection(url);
+         conn = DriverManager.getConnection(this.url);
          conn.setAutoCommit(true);
       } catch (Exception e) {
          System.err.println(e.getClass().getName() + ": " + e.getMessage());

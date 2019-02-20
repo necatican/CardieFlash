@@ -14,19 +14,19 @@ public class AnswerData {
     }
 
     public int getAnswerId() {
-        return answerId;
+        return this.answerId;
     }
 
     public double getTimeToAnswer() {
-        return timeToAnswer;
+        return this.timeToAnswer;
     }
 
     public boolean getCorrectness() {
-        return correctness;
+        return this.correctness;
     }
 
     public String getLastAsked() {
-        return lastAsked;
+        return this.lastAsked;
     }
 
 }
