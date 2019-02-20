@@ -7,7 +7,6 @@ import com.cardium.cardieflash.Card;
 import com.cardium.cardieflash.Tag;
 
 public interface TagInterface {
-
     public Tag createNewTag(String name);
 
     public Boolean deleteTag(int tagId);

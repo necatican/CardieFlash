@@ -3,19 +3,17 @@ package com.cardium.cardieflash.database;
 import java.sql.*;
 
 public class Database {
-
    private String url;
    private Connection conn;
 
    public Database(String url) {
       this.url = url;
-
-   };
+   }
 
    public void startConnection() {
       try {
          Class.forName("org.sqlite.JDBC");
-         conn = DriverManager.getConnection(url);
+         conn = DriverManager.getConnection(this.url);
          conn.setAutoCommit(true);
       } catch (Exception e) {
          System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -24,7 +22,6 @@ public class Database {
    }
 
    public Connection getConnection() {
-      return this.conn;
+      return conn;
    }
-
 }

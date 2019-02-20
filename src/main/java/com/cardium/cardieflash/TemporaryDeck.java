@@ -6,39 +6,36 @@ public class TemporaryDeck {
     private String name;
     private HashMap<Integer, Card> cards;
 
-
     public TemporaryDeck(String name) {
         this.name = name;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public void addCards(HashMap<Integer, Card> cards)
-    {
+    public void addCards(HashMap<Integer, Card> cards) {
         this.cards = cards;
     }
 
     public HashMap<Integer, Card> getCards() {
-        return cards;
+        return this.cards;
     }
 
     public boolean addCard(Card card) {
-        if (cards.containsKey(card.getCid())) {
+        if (this.cards.containsKey(card.getCid())) {
             return false;
         } else {
-            cards.put(card.getCid(), card);
+            this.cards.put(card.getCid(), card);
             return true;
-
         }
     }
 
     public boolean removeCard(int cid) {
-        if (!cards.containsKey(cid)) {
+        if (!this.cards.containsKey(cid)) {
             return false;
         } else {
-            cards.remove(cid);
+            this.cards.remove(cid);
             return true;
         }
     }
@@ -48,13 +45,12 @@ public class TemporaryDeck {
     }
 
     public boolean editCard(Card card) {
-        if (!cards.containsKey(card.getCid())) {
+        if (!this.cards.containsKey(card.getCid())) {
             return false;
         } else {
-            cards.put(card.getCid(), card);
+            this.cards.put(card.getCid(), card);
             return true;
         }
-
     }
-
 }
+

@@ -2,7 +2,6 @@ package com.cardium.cardieflash;
 
 
 public class CardStatistics {
-
     private int cardId;
     private int totalAskCount;
     private int correctAnswerCount;

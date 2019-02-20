@@ -1,7 +1,6 @@
 package com.cardium.cardieflash.tools;
 
 public final class Levenshtein {
-
     public static int levenshteinDistance(String first, String second) {
         int lenFirst = first.length() + 1;
         int lenSecond = second.length() + 1;

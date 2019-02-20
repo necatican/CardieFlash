@@ -12,7 +12,6 @@ public class AnswerDataList {
     }
 
     public ArrayList<AnswerData> getAnswerDataList() {
-
         return this.answerDataList;
     }
 
@@ -22,17 +21,14 @@ public class AnswerDataList {
         String lastAsked = this.answerDataList.get(0).getLastAsked();
         int totalCorrectAnswers = 0;
 
-        for(AnswerData answerData:this.answerDataList)
-        {
-         if(answerData.getCorrectness())
-         {
-            totalCorrectAnswers += 1;
-         }   
-         totalTime += answerData.getTimeToAnswer();
+        for(AnswerData answerData : this.answerDataList) {
+            if(answerData.getCorrectness()) {
+                totalCorrectAnswers += 1;
+            }   
+            totalTime += answerData.getTimeToAnswer();
         }
         double timeAvg = totalTime / totalAskCount;
 
-        return new CardStatistics(this.cardId, totalAskCount, totalCorrectAnswers,timeAvg, lastAsked);
-
+        return new CardStatistics(this.cardId, totalAskCount, totalCorrectAnswers, timeAvg, lastAsked);
     }
 }

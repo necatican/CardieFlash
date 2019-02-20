@@ -28,12 +28,12 @@ public class Card {
 
     public boolean checkAnswer(String userAnswer) {
         String answer = userAnswer.toLowerCase();
-        String back = this.back.toLowerCase();
+        String backLower = this.back.toLowerCase();
 
-        if (answer.equals(back)) {
+        if (answer.equals(backLower)) {
             return true;
-        } else if (Math.abs(answer.length() - back.length()) < LEVENSHTEIN_TOLERANCE){
-            if (Levenshtein.levenshteinDistance(answer, back) < LEVENSHTEIN_TOLERANCE) {
+        } else if (Math.abs(answer.length() - backLower.length()) < LEVENSHTEIN_TOLERANCE){
+            if (Levenshtein.levenshteinDistance(answer, backLower) < LEVENSHTEIN_TOLERANCE) {
                 return true;
             } else {
                 return false;
@@ -41,7 +41,6 @@ public class Card {
         } else {
             return false;
         }
-
     }
 
     public boolean equals(Card card) {

@@ -1,7 +1,6 @@
 package com.cardium.cardieflash;
 
 public class Tag {
-
     private int tagId;
     private String name;
 
@@ -11,10 +10,10 @@ public class Tag {
     }
 
     public int getTagId() {
-        return tagId;
+        return this.tagId;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 }

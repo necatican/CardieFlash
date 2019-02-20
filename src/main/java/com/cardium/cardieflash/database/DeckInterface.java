@@ -6,7 +6,6 @@ import com.cardium.cardieflash.Card;
 import com.cardium.cardieflash.Deck;
 
 public interface DeckInterface {
-
     public Deck createNewDeck(String name);
 
     public Boolean delete(int deckId);
@@ -20,5 +19,4 @@ public interface DeckInterface {
     public boolean addCard(Deck deck, Card card);
 
     public HashMap<Integer, Card> getCardsInDeck(Deck deck);
-
 }

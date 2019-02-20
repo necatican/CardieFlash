@@ -13,21 +13,20 @@ public class AnswerData {
         this.lastAsked = lastAsked;
     }
 
-    public int getAnswerId()
-    {
+    public int getAnswerId() {
         return this.answerId;
     }
 
     public double getTimeToAnswer() {
-        return timeToAnswer;
+        return this.timeToAnswer;
     }
 
     public boolean getCorrectness() {
-        return correctness;
+        return this.correctness;
     }
 
     public String getLastAsked() {
-        return lastAsked;
+        return this.lastAsked;
     }
 
 }
