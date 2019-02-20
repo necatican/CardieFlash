@@ -32,7 +32,7 @@ public class Card {
 
         if (answer.equals(back)) {
             return true;
-        } else if (Math.abs(answer.length() - back.length()) > LEVENSHTEIN_TOLERANCE){
+        } else if (Math.abs(answer.length() - back.length()) < LEVENSHTEIN_TOLERANCE){
             if (Levenshtein.levenshteinDistance(answer, back) < LEVENSHTEIN_TOLERANCE) {
                 return true;
             } else {
