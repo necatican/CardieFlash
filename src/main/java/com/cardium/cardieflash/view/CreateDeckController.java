@@ -1,15 +1,18 @@
 package com.cardium.cardieflash.view;
 
+import com.cardium.cardieflash.Deck;
 import com.cardium.cardieflash.MainApp;
 import com.cardium.cardieflash.database.DeckDb;
+import com.jfoenix.controls.JFXColorPicker;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import lombok.Getter;
 import lombok.Setter;
 
 public class CreateDeckController {
@@ -21,7 +24,13 @@ public class CreateDeckController {
     private Button createConfirmation;
 
     @FXML
+    private JFXColorPicker deckColorPicker;
+
+    @FXML
     private Button createCancel;
+
+    @Getter
+    private Deck deck;
 
     private boolean okClicked = false;
     private Stage dialogStage;
@@ -47,6 +56,7 @@ public class CreateDeckController {
     @FXML
     void clickConfirm(MouseEvent event) {
         String userQuery = deckNameTextBox.getText();
+        String selectedColor = String.valueOf(deckColorPicker.getValue());
         if (userQuery.length() < 3) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Deck name warning");
@@ -55,7 +65,10 @@ public class CreateDeckController {
             alert.showAndWait();
         } else {
             DeckDb deckDb = mainApp.getDeckDb();
-            deckDb.createNewDeck(userQuery);
+            Deck createdDeck = deckDb.createNewDeck(userQuery);
+            createdDeck.setColor(selectedColor);
+            deckDb.setColor(createdDeck, selectedColor);
+            this.deck = createdDeck;
             okClicked = true;
             dialogStage.close();
         }

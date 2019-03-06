@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXColorPicker?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
@@ -23,6 +24,8 @@
          <children>
             <Label text="Deck Name" />
             <TextField fx:id="deckNameTextBox" GridPane.columnIndex="1" />
+            <Label text="Deck Color" GridPane.rowIndex="1" />
+            <JFXColorPicker fx:id="deckColorPicker" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <ButtonBar buttonMinWidth="50.0" layoutX="186.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0">

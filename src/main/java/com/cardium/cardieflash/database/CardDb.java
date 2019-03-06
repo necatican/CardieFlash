@@ -25,7 +25,6 @@ public class CardDb implements CardInterface {
             pstmt.setString(2, back);
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
-
             int id = rs.getInt(1);
 
             return new Card(id, front, back);

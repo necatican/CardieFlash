@@ -1,9 +1,5 @@
 package com.cardium.cardieflash.database;
 
-import com.cardium.cardieflash.Card;
-import com.cardium.cardieflash.Deck;
-import com.cardium.cardieflash.database.Database;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.cardium.cardieflash.Card;
+import com.cardium.cardieflash.Deck;
+
 public class DeckDb implements DeckInterface {
+    static final String DEFAULT_COLOR = "0xfffff0";
+
     private Connection conn;
 
     public DeckDb(Database database) {
@@ -168,5 +169,67 @@ public class DeckDb implements DeckInterface {
 
     public HashMap<Integer, Card> getCardsInDeck(Deck deck) {
         return getCardsInDeck(deck.getDeckId());
+    }
+
+    public boolean setColor(int deckId, String color) {
+        String sql = "INSERT INTO HASCOLOR(DECKID,COLOR) VALUES(?,?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, deckId);
+            pstmt.setString(2, color);
+            pstmt.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException();
+        }
+
+    }
+
+    public boolean setColor(Deck deck, String color) {
+        return this.setColor(deck.getDeckId(), color);
+    }
+
+    public boolean updateColor(int deckId, String color) {
+        String sql = "UPDATE HASCOLOR SET COLOR = ? WHERE DECKID = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, color);
+            pstmt.setInt(2, deckId);
+            pstmt.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException();
+        }
+    }
+
+    public boolean updateColor(Deck deck, String color) {
+        return this.updateColor(deck.getDeckId(), color);
+
+    }
+
+    public String getColor(int deckId) {
+        String sql = "SELECT COLOR FROM HASCOLOR WHERE DECKID = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, deckId);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.getString("COLOR");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return DEFAULT_COLOR;
+        }
+    }
+
+    public String getColor(Deck deck) {
+        return this.getColor(deck.getDeckId());
+    }
+
+    public String getDefaultColor() {
+        return DEFAULT_COLOR;
     }
 }

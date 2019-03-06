@@ -1,6 +1,5 @@
 package com.cardium.cardieflash;
 
-
 public class CardStatistics {
 
     private int cardId;

@@ -1,13 +1,14 @@
 package com.cardium.cardieflash;
 
 import java.io.IOException;
+
 import com.cardium.cardieflash.database.CardDb;
 import com.cardium.cardieflash.database.Database;
 import com.cardium.cardieflash.database.DeckDb;
 import com.cardium.cardieflash.database.TagDb;
 import com.cardium.cardieflash.view.CreateDeckController;
 import com.cardium.cardieflash.view.DeckViewController;
-import lombok.Getter;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Getter;
 
 public class MainApp extends Application {
 
@@ -47,7 +49,7 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("FlashCardie");
 
-        initRootLayout();
+        // initRootLayout();
         showDeckView();
     }
 
@@ -71,10 +73,14 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/DeckView.fxml"));
             AnchorPane deckView = (AnchorPane) loader.load();
 
-            rootLayout.setCenter(deckView);
+            // rootLayout.setCenter(deckView);
 
             DeckViewController controller = loader.getController();
+            Scene scene = new Scene(deckView);
+            primaryStage.setScene(scene);
+            primaryStage.show();
             controller.setMainApp(this);
+            System.out.println("hello");
             controller.refreshPane();
 
         } catch (IOException e) {
@@ -82,7 +88,7 @@ public class MainApp extends Application {
         }
     }
 
-    public boolean showCreateDeckDialog() {
+    public Deck showCreateDeckDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/CreateDeck.fxml"));
@@ -101,10 +107,10 @@ public class MainApp extends Application {
 
             dialogStage.showAndWait();
 
-            return controller.isOkClicked();
+            return controller.getDeck();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            throw new RuntimeException();
         }
     }
 
