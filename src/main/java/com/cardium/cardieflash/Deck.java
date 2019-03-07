@@ -1,12 +1,26 @@
 package com.cardium.cardieflash;
 
 import java.util.HashMap;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Deck {
+    @Getter
     private int deckId;
+
+    @Getter
+    @Setter
     private String name;
+
+    @Getter
     private HashMap<Integer, Card> cards;
+
+    @Getter
+    @Setter
     private int totalCardCount;
+
+    @Getter
+    @Setter
     private String color;
 
     public Deck(int id, String name, HashMap<Integer, Card> cards) {
@@ -18,22 +32,6 @@ public class Deck {
     public Deck(int id, String name) {
         this.deckId = id;
         this.name = name;
-    }
-
-    public int getDeckId() {
-        return deckId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public HashMap<Integer, Card> getCards() {
-        return cards;
     }
 
     public boolean addCard(Card card) {
@@ -67,22 +65,6 @@ public class Deck {
             return true;
         }
 
-    }
-
-    public int getTotalCardCount() {
-        return totalCardCount;
-    }
-
-    public void setTotalCardCount(int cardCount) {
-        this.totalCardCount = cardCount;
-    }
-
-    public void setColor(String color) {
-            this.color = color;
-    }
-
-    public String getColor() {
-        return this.color;
     }
 
 }

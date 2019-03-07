@@ -1,10 +1,16 @@
 package com.cardium.cardieflash;
 
 import com.cardium.cardieflash.tools.Levenshtein;
+import lombok.Getter;
 
 public class Card {
+    @Getter
     private final int cid;
+
+    @Getter
     private final String front;
+
+    @Getter
     private final String back;
     private static final int LEVENSHTEIN_TOLERANCE = 3;
 
@@ -12,18 +18,6 @@ public class Card {
         this.cid = id;
         this.front = question;
         this.back = answer;
-    }
-
-    public int getCid() {
-        return this.cid;
-    }
-
-    public String getFront() {
-        return this.front;
-    }
-
-    public String getBack() {
-        return this.back;
     }
 
     public boolean checkAnswer(String userAnswer) {

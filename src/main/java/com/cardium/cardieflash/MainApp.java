@@ -80,7 +80,6 @@ public class MainApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
             controller.setMainApp(this);
-            System.out.println("hello");
             controller.refreshPane();
 
         } catch (IOException e) {
