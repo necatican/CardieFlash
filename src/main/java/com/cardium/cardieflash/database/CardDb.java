@@ -51,6 +51,10 @@ public class CardDb implements CardInterface {
         }
     }
 
+    public Boolean delete(Card card) {
+        return delete(card.getCid());
+    }
+
     public Card updateCard(Card card) {
 
         String sql = "UPDATE CARDS SET FRONT = ?, BACK = ? WHERE cid = ?";

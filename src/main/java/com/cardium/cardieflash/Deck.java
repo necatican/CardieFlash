@@ -13,6 +13,7 @@ public class Deck {
     private String name;
 
     @Getter
+    @Setter
     private HashMap<Integer, Card> cards;
 
     @Getter

@@ -58,3 +58,5 @@ buildNumber.properties
 target
 bin
 target/*
+target/classes/
+bin

@@ -233,18 +233,22 @@ public class DeckViewController {
 
     @FXML
     void handleDeckViewAction(MouseEvent event) {
-
         DeckViewBlock selected = this.stackPaneToDeckView.get((StackPane) event.getTarget());
         Deck deck = selected.getDeck();
         selected.select();
         this.loadSelectedDecks();
-        deck.setTotalCardCount(deckDb.getTotalCardCount(deck.getDeckId()));
 
         if (selected.isSelected()) {
+            deck.setTotalCardCount(deckDb.getTotalCardCount(deck.getDeckId()));
             this.setInfoBox(String.valueOf(deck.getDeckId()), deck.getName(), String.valueOf(deck.getTotalCardCount()));
         } else {
             this.setInfoBox("", "", "");
         }
+
+        if (event.getClickCount() == 2) {
+            mainApp.showCardView(deck);
+        }
+
     }
 
     public void loadSelectedDecks() {

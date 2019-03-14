@@ -20,8 +20,8 @@ public class CardViewBlock {
 
     static final double RECTANGLE_WIDTH = 150;
     static final double RECTANGLE_HEIGHT = 195;
-    static final double OUTER_RECTANGLE_SIZE_DIFF = 5;
-    static final double COLOR_RECTANGLE_HEIGHT_DIFF = 5;
+    static final double COLOR_RECTANGLE_HEIGHT_DIFF = 6;
+    static final double OUTER_RECTANGLE_SIZE_DIFF = 6;
     static final String OUTER_RECTANGLE_COLOR = "0x000000";
     static final String INNER_RECTANGLE_COLOR = "0xfffff0";
     static final double INNER_RECTANGLE_OPACITY = 0.5;
@@ -38,7 +38,7 @@ public class CardViewBlock {
     Rectangle innerRectangle;
     Rectangle deckColorRectangle;
     Rectangle outerRectangle;
-    
+
     Text text;
     Boolean isSelected = false;
     Boolean isFlipped = false;
@@ -51,8 +51,8 @@ public class CardViewBlock {
         text = new Text(deck.getName());
         text.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.WHITE, 3, 0.9, 0, 0));
 
-        outerRectangle = createRectangle(RECTANGLE_HEIGHT + OUTER_RECTANGLE_SIZE_DIFF,
-                RECTANGLE_WIDTH + OUTER_RECTANGLE_SIZE_DIFF, Color.web(OUTER_RECTANGLE_COLOR));
+        outerRectangle = createRectangle(RECTANGLE_WIDTH + OUTER_RECTANGLE_SIZE_DIFF,
+                RECTANGLE_HEIGHT + OUTER_RECTANGLE_SIZE_DIFF, Color.web(OUTER_RECTANGLE_COLOR));
 
         deckColorRectangle = createRectangle(RECTANGLE_WIDTH, RECTANGLE_HEIGHT + COLOR_RECTANGLE_HEIGHT_DIFF,
                 Color.web(this.deck.getColor()));
@@ -79,7 +79,6 @@ public class CardViewBlock {
         rectangle.setArcHeight(PREF_ARC_HEIGHT);
         return rectangle;
     }
-
 
     public void setColor(String color) {
         deck.setColor(color);
@@ -129,22 +128,16 @@ public class CardViewBlock {
     public void updateAlignments() {
         if (!isFlipped) {
             StackPane.setAlignment(outerRectangle, Pos.TOP_CENTER);
-
             StackPane.setAlignment(deckColorRectangle, Pos.TOP_CENTER);
-            StackPane.setMargin(deckColorRectangle, new Insets(1, 0, 0, 0));
-
             StackPane.setAlignment(innerRectangle, Pos.TOP_CENTER);
-            StackPane.setMargin(innerRectangle, new Insets(2, 0, 0, 0));
+            StackPane.setMargin(innerRectangle, new Insets(0, 0, COLOR_RECTANGLE_HEIGHT_DIFF, 0));
 
             setText(card.getFront());
         } else {
-            StackPane.setAlignment(outerRectangle, Pos.BOTTOM_CENTER);
-
-            StackPane.setAlignment(deckColorRectangle, Pos.BOTTOM_CENTER);
-            StackPane.setMargin(deckColorRectangle, new Insets(0, 0, 1, 0));
-
-            StackPane.setAlignment(innerRectangle, Pos.BOTTOM_CENTER);
-            StackPane.setMargin(innerRectangle, new Insets(0, 0, 2, 0));
+            StackPane.setAlignment(outerRectangle, Pos.CENTER);
+            StackPane.setAlignment(deckColorRectangle, Pos.CENTER);
+            StackPane.setAlignment(innerRectangle, Pos.CENTER);
+            StackPane.setMargin(innerRectangle, new Insets(COLOR_RECTANGLE_HEIGHT_DIFF, 0, 0, 0));
 
             setText(card.getBack());
         }

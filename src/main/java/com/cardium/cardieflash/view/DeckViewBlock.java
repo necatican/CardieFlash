@@ -22,14 +22,13 @@ public class DeckViewBlock {
     Rectangle innerRectangle;
     Rectangle outerRectangle;
     Text text;
-    Boolean isSelected;
+    Boolean isSelected = false;
 
     public DeckViewBlock(Deck deck) {
         this.stackPane = new StackPane();
         this.text = new Text(deck.getName());
         this.text.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.WHITE, 3, 0.9, 0, 0));
         this.deck = deck;
-        this.isSelected = false;
 
         this.innerRectangle = new Rectangle(RECTANGLE_WIDTH, RECTANGLE_HEIGHT);
         innerRectangle.setOpacity(0.5);

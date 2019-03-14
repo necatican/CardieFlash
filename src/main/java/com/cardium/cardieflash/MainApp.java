@@ -6,6 +6,7 @@ import com.cardium.cardieflash.database.CardDb;
 import com.cardium.cardieflash.database.Database;
 import com.cardium.cardieflash.database.DeckDb;
 import com.cardium.cardieflash.database.TagDb;
+import com.cardium.cardieflash.view.CardViewController;
 import com.cardium.cardieflash.view.CreateDeckController;
 import com.cardium.cardieflash.view.DeckViewController;
 
@@ -107,6 +108,35 @@ public class MainApp extends Application {
             dialogStage.showAndWait();
 
             return controller.getDeck();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    public void showCardView(Deck deck) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CardView.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Viewing cards in " + deck.getName());
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            CardViewController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.setDeck(deck);
+            controller.updateText();
+
+            controller.refreshPane();
+            dialogStage.showAndWait();
+
+            // return controller.getDeck();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
