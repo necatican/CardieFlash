@@ -20,4 +20,4 @@ this project to force me into different methods and concepts I wouldn't know oth
 These are the long term goals I have set for myself. Development itself will follow series of short term goals. 
 
 ## Current status
-My current goal is to finish all SQL related implementation to start wroking on the GUI.
+Currently working on GUI implementation. Programmed most of the functionality for GUI. Trying to figure out a way for asking questions and tags.
