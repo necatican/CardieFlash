@@ -1,6 +1,7 @@
 package com.cardium.cardieflash.database;
 
 import com.cardium.cardieflash.Card;
+import com.cardium.cardieflash.Tag;
 import com.cardium.cardieflash.database.Database;
 
 import java.sql.Connection;
@@ -112,5 +113,27 @@ public class CardDb implements CardInterface {
             System.out.println(e.getMessage());
             throw new RuntimeException();
         }
+    }
+
+    public ArrayList<Tag> getTags(int cid) {
+        String sql = "SELECT TAGS.TAGID, TAGS.NAME FROM TAGS JOIN HASTAGS ON TAGS.TAGID = HASTAGS.TAGID WHERE HASTAGS.CID = ?";
+        ArrayList<Tag> query = new ArrayList<Tag>();
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, cid);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                query.add(new Tag(rs.getInt("TAGID"), rs.getString("NAME")));
+            }
+            return query;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException();
+        }
+    }
+
+    public ArrayList<Tag> getTags(Card card) {
+        return getTags(card.getCid());
     }
 }

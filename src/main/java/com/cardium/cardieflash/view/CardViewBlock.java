@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class CardViewBlock {
     static final double PREF_ARC_WIDTH = 10;
@@ -29,6 +30,7 @@ public class CardViewBlock {
     @Getter
     StackPane stackPane;
 
+    @Setter
     @Getter
     Card card;
 
@@ -127,16 +129,16 @@ public class CardViewBlock {
 
     public void updateAlignments() {
         if (!isFlipped) {
-            StackPane.setAlignment(outerRectangle, Pos.TOP_CENTER);
-            StackPane.setAlignment(deckColorRectangle, Pos.TOP_CENTER);
-            StackPane.setAlignment(innerRectangle, Pos.TOP_CENTER);
+            StackPane.setAlignment(outerRectangle, Pos.CENTER);
+            StackPane.setAlignment(deckColorRectangle, Pos.CENTER);
+            StackPane.setAlignment(innerRectangle, Pos.CENTER);
             StackPane.setMargin(innerRectangle, new Insets(0, 0, COLOR_RECTANGLE_HEIGHT_DIFF, 0));
 
             setText(card.getFront());
         } else {
-            StackPane.setAlignment(outerRectangle, Pos.CENTER);
-            StackPane.setAlignment(deckColorRectangle, Pos.CENTER);
-            StackPane.setAlignment(innerRectangle, Pos.CENTER);
+            StackPane.setAlignment(outerRectangle, Pos.BOTTOM_CENTER);
+            StackPane.setAlignment(deckColorRectangle, Pos.BOTTOM_CENTER);
+            StackPane.setAlignment(innerRectangle, Pos.BOTTOM_CENTER);
             StackPane.setMargin(innerRectangle, new Insets(COLOR_RECTANGLE_HEIGHT_DIFF, 0, 0, 0));
 
             setText(card.getBack());

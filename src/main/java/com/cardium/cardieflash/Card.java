@@ -38,7 +38,17 @@ public class Card {
 
     }
 
-    public boolean equals(Card card) {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        else if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }else{
+            Card card = (Card) obj;
         return (card.getCid() == this.cid && card.getBack().equals(this.back) && card.getFront().equals(this.front));
+        }
     }
+
 }

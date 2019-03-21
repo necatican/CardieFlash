@@ -1,11 +1,15 @@
 package com.cardium.cardieflash;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.cardium.cardieflash.database.CardDb;
 import com.cardium.cardieflash.database.Database;
 import com.cardium.cardieflash.database.DeckDb;
 import com.cardium.cardieflash.database.TagDb;
+import com.cardium.cardieflash.view.CardCreationController;
+import com.cardium.cardieflash.view.CardEditController;
+import com.cardium.cardieflash.view.CardViewBlock;
 import com.cardium.cardieflash.view.CardViewController;
 import com.cardium.cardieflash.view.CreateDeckController;
 import com.cardium.cardieflash.view.DeckViewController;
@@ -136,12 +140,70 @@ public class MainApp extends Application {
             controller.refreshPane();
             dialogStage.showAndWait();
 
-            // return controller.getDeck();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
     }
+
+    public ArrayList<Card> showCardCreation(Deck deck) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CardCreation.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Create a card");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            CardCreationController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.updateTagList();
+            controller.setDeck(deck);
+
+            dialogStage.showAndWait();
+
+            return controller.getCreatedCards();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    public void showCardEdit(CardViewBlock block) {
+        try {
+            Card card = block.getCard();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CardEdit.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editing: " + card.getFront());
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            CardEditController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDialogStage(dialogStage);
+            controller.updateTagList();
+            
+            controller.setBlock(block);
+
+            dialogStage.showAndWait();
+            // return controller.getCreatedCards();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;

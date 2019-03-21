@@ -8,10 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TagDb implements TagInterface{
+public class TagDb implements TagInterface {
     private Connection conn;
 
     public TagDb(Database database) {
@@ -81,6 +82,38 @@ public class TagDb implements TagInterface{
 
             return query;
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException();
+        }
+    }
+
+    public Tag getTag(String tagName) {
+        String sql = "SELECT TAGID, NAME FROM TAGS WHERE NAME = ?";
+        Tag query;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, tagName);
+            ResultSet rs = pstmt.executeQuery();
+
+            query = new Tag(rs.getInt("TAGID"), rs.getString("NAME"));
+
+            return query;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException();
+        }
+    }
+    public ArrayList<Tag> getAllTags() {
+        String sql = "SELECT TAGID, NAME FROM TAGS";
+        ArrayList<Tag> tagSet = new ArrayList<Tag>();
+        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                tagSet.add(new Tag(rs.getInt("TAGID"), rs.getString("NAME")));
+            }
+            return tagSet;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException();

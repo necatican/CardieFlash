@@ -1,5 +1,6 @@
 package com.cardium.cardieflash.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -117,6 +118,8 @@ public class CardViewController {
 
     @FXML
     void createNewCard(MouseEvent event) {
+        ArrayList<Card>  createdCards = mainApp.showCardCreation(this.getDeck());
+        createdCards.stream().forEach(this::addNewCardToPane);
 
     }
 
