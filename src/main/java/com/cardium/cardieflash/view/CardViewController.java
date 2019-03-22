@@ -144,7 +144,7 @@ public class CardViewController {
 
     @FXML
     void editCard(MouseEvent event) {
-
+        mainApp.showCardEdit(selectedCards.get(0));
     }
 
     public void loadSelectedCards() {

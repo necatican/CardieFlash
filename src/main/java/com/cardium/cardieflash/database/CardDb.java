@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class CardDb implements CardInterface {
     private Connection conn;
@@ -115,9 +116,9 @@ public class CardDb implements CardInterface {
         }
     }
 
-    public ArrayList<Tag> getTags(int cid) {
+    public HashSet<Tag> getTags(int cid) {
         String sql = "SELECT TAGS.TAGID, TAGS.NAME FROM TAGS JOIN HASTAGS ON TAGS.TAGID = HASTAGS.TAGID WHERE HASTAGS.CID = ?";
-        ArrayList<Tag> query = new ArrayList<Tag>();
+        HashSet<Tag> query = new HashSet<Tag>();
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, cid);
@@ -133,7 +134,32 @@ public class CardDb implements CardInterface {
         }
     }
 
-    public ArrayList<Tag> getTags(Card card) {
+    public HashSet<Tag> getTags(Card card) {
         return getTags(card.getCid());
+    }
+
+    public boolean removeTag(int cardId, ArrayList<String> tagNames) {
+        String questionMarks = "";
+
+        for (int i = 0; i < tagNames.size() - 1; i++) {
+            questionMarks = questionMarks + "?,";
+        }
+
+        String sql = "DELETE FROM HASTAGS WHERE TAGID IN (SELECT TAGS.TAGID FROM TAGS WHERE TAGS.NAME IN ("
+                + questionMarks + " ?)) AND HASTAGS.CID = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            int cursor = 1;
+            for (String tagName : tagNames) {
+                pstmt.setString(cursor, tagName);
+                cursor++;
+            }
+            pstmt.setInt(cursor, cardId);
+
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 }

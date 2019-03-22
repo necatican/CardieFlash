@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class TagDb implements TagInterface {
     private Connection conn;
@@ -105,9 +106,9 @@ public class TagDb implements TagInterface {
             throw new RuntimeException();
         }
     }
-    public ArrayList<Tag> getAllTags() {
+    public HashSet<Tag> getAllTags() {
         String sql = "SELECT TAGID, NAME FROM TAGS";
-        ArrayList<Tag> tagSet = new ArrayList<Tag>();
+        HashSet<Tag> tagSet = new HashSet<Tag>();
         try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {

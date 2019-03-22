@@ -1,6 +1,8 @@
 package com.cardium.cardieflash.view;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+
 import com.cardium.cardieflash.Card;
 import com.cardium.cardieflash.Deck;
 import com.cardium.cardieflash.MainApp;
@@ -42,7 +44,7 @@ public class CardCreationController {
     @Setter
     private MainApp mainApp;
 
-    private ArrayList<Tag> tagList;
+    private HashSet<Tag> tagList;
 
     @Getter
     private ArrayList<Card> createdCards = new ArrayList<Card>();
@@ -76,7 +78,11 @@ public class CardCreationController {
             CardDb cardDb = mainApp.getCardDb();
             DeckDb deckDb = mainApp.getDeckDb();
 
-            String[] chips = chipView.getChips().toArray(String[]::new);
+            HashSet<String> chips = new HashSet<>();
+            HashSet<String> savedTags = new HashSet<>();
+
+            tagList.forEach(tag -> savedTags.add(tag.getName()));
+            chipView.getChips().forEach(chip -> chips.add(chip));
 
             Card card = cardDb.createNewCard(front, back);
             deckDb.addCard(this.deck, card);
@@ -85,7 +91,7 @@ public class CardCreationController {
             for (String chip : chips) {
                 Tag tag;
 
-                if (!tagList.contains(new Tag(chip))) {
+                if (!savedTags.contains(chip)){
                     tag = tagDb.createNewTag(chip);
                     chipView.getSuggestions().add(chip);
                 } else {
@@ -96,6 +102,7 @@ public class CardCreationController {
                 try {
                     tagDb.addCard(tag, card);
                 } catch (Exception e) {
+                    System.out.println(e);
                 }
             }
             textFront.setText("");

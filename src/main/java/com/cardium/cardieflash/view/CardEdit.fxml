@@ -31,7 +31,7 @@
             <JFXChipView fx:id="chipView" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <ButtonBar fx:id="applyButton" layoutX="184.0" layoutY="281.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ButtonBar layoutX="184.0" layoutY="281.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <buttons>
           <Button fx:id="applyButton" mnemonicParsing="false" onMouseClicked="#applyEdit" text="Apply" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#close" text="Cancel" />

@@ -179,7 +179,9 @@ public class MainApp extends Application {
             Card card = block.getCard();
 
             FXMLLoader loader = new FXMLLoader();
+
             loader.setLocation(MainApp.class.getResource("view/CardEdit.fxml"));
+
             AnchorPane page = (AnchorPane) loader.load();
 
             Stage dialogStage = new Stage();
@@ -192,9 +194,10 @@ public class MainApp extends Application {
             CardEditController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDialogStage(dialogStage);
-            controller.updateTagList();
-            
             controller.setBlock(block);
+            controller.updateTextBlocks(card.getFront(), card.getBack());
+            controller.updateTagList();
+
 
             dialogStage.showAndWait();
             // return controller.getCreatedCards();

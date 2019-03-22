@@ -23,9 +23,10 @@ public class CardViewBlock {
     static final double RECTANGLE_HEIGHT = 195;
     static final double COLOR_RECTANGLE_HEIGHT_DIFF = 6;
     static final double OUTER_RECTANGLE_SIZE_DIFF = 6;
+    static final double OUTER_RECTANGLE_HEIGHT_DIFF = 6;
     static final String OUTER_RECTANGLE_COLOR = "0x000000";
     static final String INNER_RECTANGLE_COLOR = "0xfffff0";
-    static final double INNER_RECTANGLE_OPACITY = 0.5;
+    static final double INNER_RECTANGLE_OPACITY = 1;
 
     @Getter
     StackPane stackPane;
@@ -54,7 +55,7 @@ public class CardViewBlock {
         text.setEffect(new DropShadow(BlurType.GAUSSIAN, Color.WHITE, 3, 0.9, 0, 0));
 
         outerRectangle = createRectangle(RECTANGLE_WIDTH + OUTER_RECTANGLE_SIZE_DIFF,
-                RECTANGLE_HEIGHT + OUTER_RECTANGLE_SIZE_DIFF, Color.web(OUTER_RECTANGLE_COLOR));
+                RECTANGLE_HEIGHT + OUTER_RECTANGLE_SIZE_DIFF + OUTER_RECTANGLE_HEIGHT_DIFF, Color.web(OUTER_RECTANGLE_COLOR));
 
         deckColorRectangle = createRectangle(RECTANGLE_WIDTH, RECTANGLE_HEIGHT + COLOR_RECTANGLE_HEIGHT_DIFF,
                 Color.web(this.deck.getColor()));
@@ -131,6 +132,7 @@ public class CardViewBlock {
         if (!isFlipped) {
             StackPane.setAlignment(outerRectangle, Pos.CENTER);
             StackPane.setAlignment(deckColorRectangle, Pos.CENTER);
+            StackPane.setMargin(deckColorRectangle, new Insets(0, 0, 0, 0));
             StackPane.setAlignment(innerRectangle, Pos.CENTER);
             StackPane.setMargin(innerRectangle, new Insets(0, 0, COLOR_RECTANGLE_HEIGHT_DIFF, 0));
 
@@ -138,8 +140,10 @@ public class CardViewBlock {
         } else {
             StackPane.setAlignment(outerRectangle, Pos.BOTTOM_CENTER);
             StackPane.setAlignment(deckColorRectangle, Pos.BOTTOM_CENTER);
+            StackPane.setMargin(deckColorRectangle, new Insets(0, 0, 3, 0));
+
             StackPane.setAlignment(innerRectangle, Pos.BOTTOM_CENTER);
-            StackPane.setMargin(innerRectangle, new Insets(COLOR_RECTANGLE_HEIGHT_DIFF, 0, 0, 0));
+            StackPane.setMargin(innerRectangle, new Insets(0, 0, 3, 0));
 
             setText(card.getBack());
         }

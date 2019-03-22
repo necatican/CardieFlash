@@ -15,7 +15,7 @@
    <children>
       <SplitPane dividerPositions="0.19539078156312625" layoutX="64.0" layoutY="50.0" prefHeight="365.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane maxWidth="200.0" minHeight="0.0" minWidth="100.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <GridPane layoutX="-1.0" layoutY="22.0" prefHeight="90.0" prefWidth="188.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -37,19 +37,19 @@
                         <Label fx:id="deckId" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <Button fx:id="startGame" layoutX="22.0" layoutY="358.0" mnemonicParsing="false" text="Start playing" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                  <Button fx:id="startGame" layoutX="30.0" layoutY="544.0" mnemonicParsing="false" text="Start playing" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
                </children>
             </AnchorPane>
           <AnchorPane fx:id="viewPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" prefWidth="218.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" prefWidth="218.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0">
                     <buttons>
                       <Button fx:id="newDeck" mnemonicParsing="false" onMouseClicked="#createNewDeck" text="New" />
                         <Button fx:id="editDeck" disable="true" mnemonicParsing="false" onMouseClicked="#editDeck" text="Edit" />
                         <Button fx:id="deleteDeck" mnemonicParsing="false" onMouseClicked="#deleteDeck" text="Delete" />
                     </buttons>
                   </ButtonBar>
-                  <ScrollPane fx:id="scrollPane" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <content>
                         <JFXMasonryPane fx:id="masonryPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="320.0" />
                      </content>
